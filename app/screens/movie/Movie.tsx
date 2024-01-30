@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useGetMoviesQuery } from './services/movieApi';
 import useDebounce from '~hooks/useDebounce';
+import { Box, Grid } from '@mui/material';
+import MovieCard from './components/MovieCard';
 
 function Movie() {
   const { search, handleSearch } = useDebounce();
@@ -12,12 +14,27 @@ function Movie() {
     search,
   });
 
+  const renderMovies = data?.Search?.map?.((item: any) => (
+    <Grid
+      sx={{
+        border: '0px solid red',
+        justifyContent: 'center',
+        display: 'flex',
+        mb: 2,
+      }}
+      item
+      xs={2}
+    >
+      <MovieCard {...item} />
+    </Grid>
+  ));
+
   return (
-    <div style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <span style={{ color: '#000', fontSize: 25, fontWeight: 'bold' }}>
-        Movie
-      </span>
-    </div>
+    <Box sx={{ mt: 5 }}>
+      <Grid sx={{ border: '0px solid red' }} container>
+        {renderMovies}
+      </Grid>
+    </Box>
   );
 }
 

@@ -1,7 +1,9 @@
 import { Box, Button, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { capitlizeFirstLetter } from '~helper/index';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { capitlizeFirstLetter, dottify } from '~helper/index';
+import { setId } from '../store/movieSlice';
 
 interface MovieCardProps {
   Poster: string;
@@ -12,10 +14,18 @@ interface MovieCardProps {
 }
 
 function MovieCard({ Poster, Title, Type, Year, imdbID }: MovieCardProps) {
+  const { push } = useRouter();
+  const dispatch = useDispatch();
+
   const [hovered, setHovered] = useState(false);
 
+  const handleClick = (id: string) => {
+    dispatch(setId(id));
+    push(`/movie/details`);
+  };
+
   return (
-    <Box>
+    <Box onClick={() => handleClick(imdbID)} sx={{ border: '0px solid red' }}>
       <Box
         sx={{
           height: 315,
@@ -54,7 +64,7 @@ function MovieCard({ Poster, Title, Type, Year, imdbID }: MovieCardProps) {
           )}
         </Box>
       </Box>
-      <Typography variant="body1">{Title}</Typography>
+      <Typography variant="body1">{dottify(Title, 25)}</Typography>
       <Typography variant="subtitle2" sx={{ color: 'silver' }}>
         {Year}
       </Typography>

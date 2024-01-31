@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function useDebounce() {
-  const [search, setSearch] = useState('cat');
+  const [search, setSearch] = useState('pokemon');
   const [timeoutId, setTimeoutId]: any = useState('');
 
   const handleSearch = (e: any) => {

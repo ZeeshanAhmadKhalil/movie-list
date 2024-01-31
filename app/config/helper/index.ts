@@ -9,5 +9,9 @@ const capitlizeFirstLetter = (string: string) => {
 
   return result;
 };
+const dottify = (string: string, maxLength: number) => {
+  if (string.length > maxLength) return string?.slice?.(0, maxLength) + '...';
+  return string;
+};
 
-export { capitlizeFirstLetter };
+export { dottify, capitlizeFirstLetter };

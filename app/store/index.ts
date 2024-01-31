@@ -4,10 +4,12 @@ import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import { api } from '~services/index';
 import storage from '~store/storage';
+import movie from '~screens/movie/store/movieSlice';
 
 setAutoFreeze(false);
 
 const combinedReducer = combineReducers({
+  movie,
   [api.reducerPath]: api.reducer,
 });
 
@@ -22,7 +24,7 @@ const rootReducer = (state: any, action: any) => {
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'],
+  whitelist: ['movie'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
